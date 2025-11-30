@@ -39,4 +39,5 @@
     <string name="confirm_password">Confirm Password</string>
 
     <string name="username">Username</string>
+    <string name="please_specify_gender">please_specify_gender</string>
 </resources>

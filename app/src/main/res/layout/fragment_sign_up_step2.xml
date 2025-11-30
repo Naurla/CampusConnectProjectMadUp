@@ -41,35 +41,28 @@
             android:textSize="14sp"
             android:layout_marginBottom="8dp"/>
 
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/rg_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="16dp">
 
-            <RadioGroup
-                android:id="@+id/rg_gender"
-                android:layout_width="0dp"
+            <RadioButton
+                android:id="@+id/rb_male"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:layout_marginEnd="8dp"
+                android:text="@string/man"
+                android:textSize="12sp" />
 
-                <RadioButton
-                    android:id="@+id/rb_male"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/man"
-                    android:textSize="12sp" />
-
-                <RadioButton
-                    android:id="@+id/rb_female"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/woman"
-                    android:textSize="12sp" />
-            </RadioGroup>
+            <RadioButton
+                android:id="@+id/rb_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/woman"
+                android:textSize="12sp" />
 
             <RadioButton
                 android:id="@+id/rb_other"
@@ -77,7 +70,22 @@
                 android:layout_height="wrap_content"
                 android:text="@string/others_please_specify"
                 android:textSize="12sp" />
-        </LinearLayout>
+        </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_other_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_other_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/please_specify_gender"
+                android:inputType="textCapWords"
+                android:background="@color/white"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
