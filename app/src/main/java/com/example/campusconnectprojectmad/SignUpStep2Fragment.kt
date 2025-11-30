@@ -1,5 +1,6 @@
 package com.example.campusconnectprojectmad
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.campusconnectprojectmad.databinding.FragmentSignUpStep2Binding
-
+import java.util.Calendar // Import Calendar for date handling
+import java.text.SimpleDateFormat // Import SimpleDateFormat for date formatting
+import java.util.Locale // Import Locale
 
 class SignUpStep2Fragment : Fragment() {
 
@@ -39,6 +42,11 @@ class SignUpStep2Fragment : Fragment() {
             "Other" -> binding.rbOther.isChecked = true
         }
 
+        // 💡 NEW: Attach the DatePicker dialog launcher to the Date of Birth field
+        binding.etDob.setOnClickListener {
+            showDatePickerDialog()
+        }
+
         binding.imgArrowNext.setOnClickListener {
             if (validateFields()) {
                 saveData()
@@ -49,12 +57,41 @@ class SignUpStep2Fragment : Fragment() {
         binding.imgArrowBack.setOnClickListener {
             parentActivity.navigateBack()
         }
+    }
 
-        // Example of adding a DatePicker listener (if needed)
-        binding.etDob.setOnClickListener {
-            // Implement DatePicker dialog here
-            Toast.makeText(context, "Date Picker placeholder", Toast.LENGTH_SHORT).show()
-        }
+    // Function to launch the native DatePicker dialog
+    private fun showDatePickerDialog() {
+        // Get current date to set as default date in the picker
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, selectedYear, selectedMonth, selectedDay ->
+                // This callback is triggered when the user selects a date
+
+                // Create a calendar instance for the selected date
+                val selectedDateCalendar = Calendar.getInstance()
+                selectedDateCalendar.set(selectedYear, selectedMonth, selectedDay)
+
+                // Format the date into a readable string (e.g., DD/MM/YYYY)
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.US)
+                val formattedDate = dateFormat.format(selectedDateCalendar.time)
+
+                // Set the formatted date to the EditText field
+                binding.etDob.setText(formattedDate)
+            },
+            year,
+            month,
+            day
+        )
+
+        // Optional: Prevent users from selecting a date in the future
+        datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+
+        datePickerDialog.show()
     }
 
     private fun validateFields(): Boolean {
@@ -62,6 +99,10 @@ class SignUpStep2Fragment : Fragment() {
 
         if (binding.rgGender.checkedRadioButtonId == -1) {
             Toast.makeText(context, "Please select Gender", Toast.LENGTH_SHORT).show()
+            isValid = false
+        }
+        if (binding.etDob.text.isNullOrBlank()) {
+            binding.etDob.error = "Date of Birth is required"
             isValid = false
         }
         if (binding.etEmail.text.isNullOrBlank() || !android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()) {

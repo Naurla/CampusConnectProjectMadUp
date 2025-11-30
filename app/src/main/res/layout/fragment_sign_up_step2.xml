@@ -58,21 +58,25 @@
                     android:id="@+id/rb_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/man"
-                    android:layout_marginEnd="8dp"/>
+                    android:textSize="12sp" />
+
                 <RadioButton
                     android:id="@+id/rb_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/woman"
-                    android:layout_marginEnd="8dp"/>
+                    android:textSize="12sp" />
             </RadioGroup>
 
             <RadioButton
                 android:id="@+id/rb_other"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/others_please_specify" />
+                android:text="@string/others_please_specify"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
